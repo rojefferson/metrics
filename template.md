@@ -15,9 +15,7 @@
 
 # ADVERTISING REPORTS
 
-## {{ campaign_name
-
-}}
+## {{ campaign_name }}
 
 ### EP Release Day Boosts:}
 
