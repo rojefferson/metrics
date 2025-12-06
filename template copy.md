@@ -1,41 +1,34 @@
+# {{ client_name }} – AD REPORT
 
-# Relatório da campanha
-
-**Cliente:** {{ client_name }}
-**Campanha:** {{ campaign_name }}
+## Social / Streaming Stats
+- **Instagram Followers:** {{ ig_followers_start }} → {{ ig_followers_end }}
+- **Facebook Followers:** {{ fb_followers_start }} → {{ fb_followers_end }}
+- **Spotify Monthly Listeners:** {{ spotify_listeners_start }} → {{ spotify_listeners_end }}
+- **YouTube Subscribers:** {{ yt_subs_start }} → {{ yt_subs_end }}
+  - **Total Video Views:** {{ yt_total_views }}
+- **Twitter Followers:** {{ twitter_followers_start }} → {{ twitter_followers_end }}
 
 ---
 
+# {{ campaign_name }}
+
+# ADVERTISING REPORTS
+
 {% for plataforma in platforms %}
-
-## 📌 Plataforma:}
-
-{% if plataforma.posts|length == 0 %}
-
-> Nenhum post encontrado nesta plataforma.
-
-{% else %}
+## {{ plataforma.platform_name }}
 
 {% for post in plataforma.posts %}
+{% set ad_name = post.get("Ad name") or post.get("Video") or "Unnamed Ad" %}
 
-### 🔹 Post / Vídeo:
+### {{ ad_name }}
 
-{% if post.get("Ad name") %}**{{ post["Ad name"] }}**{% endif %}
-{% if post.get("Video") %}**{{ post["Video"] }}**{% endif %}
-
-| Métrica                                   | Valor       |
-| ------------------------------------------ | ----------- |
-| {% for chave, valor in post.items() %}     |             |
-| {% if chave not in ["Ad name", "Video"] %} |             |
-| **{{ chave }}**                      | {{ valor }} |
-| {% endif %}                                |             |
-| {% endfor %}                               |             |
+{% for chave, valor in post.items() %}
+{% if chave not in ["Ad name", "Video"] %}
+- **{{ chave }}:** {{ valor }}
+{% endif %}
+{% endfor %}
 
 ---
 
 {% endfor %}
-{% endif %}
-
----
-
 {% endfor %}
